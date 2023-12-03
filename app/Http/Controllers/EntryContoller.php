@@ -38,8 +38,8 @@ class EntryContoller extends Controller {
 			$entries = $entries->where('sitting_entries.train_no', 'LIKE', '%'.$request->train_no.'%');
 		}
 
-		if(Auth::id() !=1){
-			$entries = $entries->orWhere('deleted',0);
+		if(Auth::id() != 1){
+			$entries = $entries->Where('deleted',0);
 		}
 		$entries = $entries->orderBy('id', "DESC")->get();
 

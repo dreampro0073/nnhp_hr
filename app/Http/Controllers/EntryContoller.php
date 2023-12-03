@@ -39,9 +39,15 @@ class EntryContoller extends Controller {
 		}
 
 		if(Auth::id() != 1){
-			$entries = $entries->Where('deleted',0);
+			$entries = $entries->where('deleted',0);
+
 		}
-		$entries = $entries->orderBy('id', "DESC")->get();
+		$entries = $entries->orderBy('id', "DESC");
+
+		if(Auth::id() != 1){
+			$entries = $entries->take(500);
+		}
+		$entries = $entries->get();
 
 		
 		$data = Entry::totalShiftData();
@@ -49,16 +55,16 @@ class EntryContoller extends Controller {
 		$pay_types = Entry::payTypes();
 		$hours = Entry::hours();
 
-		$show_pay_types = Entry::showPayTypes();
-		if(sizeof($entries) > 0){
-			foreach ($entries as $item) {
-				$item->pay_by = isset($item->pay_type)?$show_pay_types[$item->pay_type]:'';
-				$item->delete_time = date("d-m-Y h:i A",strtotime($item->delete_time));
+		// $show_pay_types = Entry::showPayTypes();
+		// if(sizeof($entries) > 0){
+		// 	foreach ($entries as $item) {
+		// 		$item->pay_by = isset($item->pay_type)?$show_pay_types[$item->pay_type]:'';
+		// 		$item->delete_time = date("d-m-Y h:i A",strtotime($item->delete_time));
 
 
-			}
+		// 	}
 
-		}
+		// }
 
 		$data['success'] = true;
 		$data['entries'] = $entries;

@@ -29,8 +29,7 @@ class MassageController extends Controller {
 
 	public function initMassage(Request $request){
 		
-
-		$m_entries = DB::table('massage_entries');
+		$m_entries = DB::table('massage_entries')->select('massage_entries.*','users.name as username')->leftJoin('users','users.id','=','massage_entries.delete_by');
 
 		if($request->unique_id){
 			$m_entries = $m_entries->where('massage_entries.unique_id', 'LIKE', '%'.$request->unique_id.'%');
@@ -40,16 +39,14 @@ class MassageController extends Controller {
 		if(Auth::id() != 1){
 			$m_entries = $m_entries->where('deleted',0);
 		}
-		$m_entries = $m_entries->orderBy('id','DESC')->get();
+		$m_entries = $m_entries->orderBy('id','DESC');
+		if(Auth::id() != 1){
+			$m_entries = $m_entries->take(500);
+		}
+			
+		$m_entries = $m_entries->get();
 
 		$show_pay_types = Entry::showPayTypes();
-		if(sizeof($m_entries) > 0){
-			foreach ($m_entries as $item) {
-				$item->pay_by = isset($item->pay_type)?$show_pay_types[$item->pay_type]:'';
-				$item->delete_time = date("d-m-Y h:i A",strtotime($item->delete_time));
-			}
-
-		}
 
 		$pay_types = Entry::payTypes();
 		$data['success'] = true;
@@ -192,27 +189,7 @@ class MassageController extends Controller {
         $print_data = DB::table('massage_entries')->where('id', $id)->first();
         return view('admin.print_page_massage', compact('print_data'));
 
-		
-		// $this->printFinal($print_data);
 	}
-
-	// public function printFinal($print_data){
-
- //        $options = new Options();
- //        $options->set('isRemoteEnabled', true);
-
- //        $dompdf = new Dompdf($options);
-
- //        define("DOMPDF_UNICODE_ENABLED", true);
-
- //        $html = view('admin.print_page_massage', compact('print_data'));
-
- //        $dompdf->loadHtml($html);
- //        $dompdf->setPaper([0,0,230,280]);
- //        $dompdf->render();
- //        $dompdf->stream(date("dmY",strtotime("now")).'.pdf',array("Attachment" => false));
- //    }
-
 
 	public function delete($id){
     	DB::table('massage_entries')->where('id',$id)->update([

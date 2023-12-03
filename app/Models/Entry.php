@@ -190,7 +190,7 @@ class Entry extends Model
     public function getPDate(){
         $p_date = date("Y-m-d");
         $current_time = strtotime(date("H:i:s"));
-        // $p_date = date("2023-11-27");
+        // $p_date = date("2023-11-03");
         // $current_time = strtotime("02:09:00");
 
         if($current_time > strtotime("00:00:00") && $current_time < strtotime("06:00:00")){

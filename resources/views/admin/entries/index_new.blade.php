@@ -64,12 +64,14 @@
 
                             <td>@{{ item.pnr_uid }}</td>
                            
-                            <td>@{{ item.pay_by }}</td>
+                            <td>
+                                <span ng-if="item.pay_type == 1">Cash</span>
+                                <span ng-if="item.pay_type == 2">UPI</span>
+                            </td>
                             <td>@{{ item.paid_amount }}</td>
                             <td>
                                 <div ng-if="item.deleted == 1">
                                     <span >@{{item.username}},</span>
-                                    <span >@{{item.shit}}, </span>
                                     <span >@{{item.delete_time}}</span>
                                 </div>
                             </td>

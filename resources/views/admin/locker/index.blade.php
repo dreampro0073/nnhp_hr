@@ -69,7 +69,6 @@
                             <td>
                                 <div ng-if="item.deleted == 1">
                                     <span >@{{item.username}},</span>
-                                    <span >@{{item.shit}}, </span>
                                     <span >@{{item.delete_time}}</span>
                                 </div>
                             </td>

@@ -96,7 +96,7 @@ app.controller('massageCtrl', function($scope , $http, $timeout , DBService) {
                 $scope.init();
                 setTimeout(function(){
                     window.open(base_url+'/admin/massage/print/'+data.id, '_blank')
-                }, 1000);
+                }, 800);
 
             
 
@@ -120,11 +120,11 @@ app.controller('massageCtrl', function($scope , $http, $timeout , DBService) {
 app.controller('sittingCtrl', function($scope , $http, $timeout , DBService) {
     $scope.loading = false;
     $scope.formData = {
-        no_of_adults:23,
-        no_of_baby_staff:1,
-        no_of_children:2,
-        name:'dip',
-        mobile:"89898",
+        no_of_adults:0,
+        no_of_baby_staff:0,
+        no_of_children:0,
+        name:'',
+        mobile:"",
         paid_amount:0,
         hours_occ:'',
     };
@@ -147,14 +147,24 @@ app.controller('sittingCtrl', function($scope , $http, $timeout , DBService) {
     $scope.init = function () {
         
         DBService.postCall($scope.filter, '/api/sitting/init').then((data) => {
+
             if (data.success) {
                 $scope.pay_types = data.pay_types;
                 $scope.hours = data.hours;
                 $scope.entries = data.entries;
+
+                $scope.total_upi_collection = data.total_shift_upi;
+                $scope.total_cash_collection = data.total_shift_cash;
+                $scope.total_collection = data.total_collection;
+
+                $scope.last_hour_upi_total = data.last_hour_upi_total;
+                $scope.last_hour_cash_total = data.last_hour_cash_total;
+                $scope.last_hour_total = data.last_hour_total;
+                
+                $scope.check_shift = data.check_shift;
             }
         });
     }
-    
     $scope.filterClear = function(){
         $scope.filter = {};
         $scope.init();
@@ -187,16 +197,14 @@ app.controller('sittingCtrl', function($scope , $http, $timeout , DBService) {
             paid_amount:0,
             balance_amount:0,
             hours_occ:0,
-            check_in:'',
-            check_out:'',
         };
     }
 
     $scope.onSubmit = function () {
         $scope.loading = true;
+        // console.log($scope.formData);return;
         DBService.postCall($scope.formData, '/api/sitting/store').then((data) => {
             if (data.success) {
-                $scope.listing(data.id);
                 $("#exampleModalCenter").modal("hide");
                 $scope.entry_id = 0;
                 $scope.formData = {
@@ -212,23 +220,15 @@ app.controller('sittingCtrl', function($scope , $http, $timeout , DBService) {
                     check_in:'',
                     check_out:'',
                 };
+                $scope.init();
+                setTimeout(function(){
+                    window.open(base_url+'/admin/sitting/print/'+data.id, '_blank');
+
+                }, 800);
 
             }
             $scope.loading = false;
         });
-    }
-
-    $scope.listing = function (p_id) {
-        DBService.postCall($scope.filter, '/api/sitting/init').then((data) => {
-            if (data.success) {
-                $scope.entries = data.entries;
-                window.open(base_url+'/admin/sitting/print/'+p_id, '_blank');
-            }
-        });
-    }
-    $scope.openUrl =(red_url) => {
-        window.open(red_url);
-
     }
 
     $scope.calCheck = () => {
@@ -372,9 +372,12 @@ app.controller('lockerCtrl', function($scope , $http, $timeout , DBService) {
                     locker_id:'',
                 };
                 $scope.init();
+                setTimeout(function(){
+                    window.open(base_url+'/admin/locker/print/'+data.id,'_blank');
+                }, 800);
 
                 // window.location.href = base_url+'/admin/locker/print/'+data.id;
-                // window.open(base_url+'/admin/locker/print/'+data.id);
+                // window.open(base_url+'/admin/locker/print/'+data.id,'_blank');
 
             }
             $scope.loading = false;

@@ -24,7 +24,7 @@ class LockerController extends Controller {
 
 	public function initLocker(Request $request){
 		
-		$l_entries = Locker::select('locker_entries.*');
+		$l_entries = DB::table('locker_entries')->select('locker_entries.*','users.name as username')->leftJoin('users','users.id','=','locker_entries.delete_by');
 		if($request->unique_id){
 			$l_entries = $l_entries->where('locker_entries.unique_id', 'LIKE', '%'.$request->unique_id.'%');
 		}		
@@ -47,8 +47,8 @@ class LockerController extends Controller {
 		if(Auth::id() != 1){
 			$l_entries = $l_entries->where('deleted',0);
 		}
-		$l_entries = $l_entries->orderBy('id', "DESC");
-		$l_entries = $l_entries->where('checkout_status', 0)->get();
+		$l_entries = $l_entries->where('checkout_status', 0);
+		$l_entries = $l_entries->orderBy('id', "DESC")->get();
 
 
 		$pay_types = Entry::payTypes();

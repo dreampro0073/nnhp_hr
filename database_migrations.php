@@ -28,4 +28,6 @@ CREATE TABLE `locker_penalty` ( `id` INT NOT NULL , `locker_entry_id` INT NULL D
 ALTER TABLE `locker_penalty` ADD `pay_type` TINYINT(2) NULL DEFAULT NULL AFTER `penalty_amount`;
 ALTER TABLE `locker_penalty` ADD `date` DATE NULL DEFAULT NULL AFTER `shift`;
 
+ALTER TABLE `massage_entries` CHANGE `delete_by` `deleted_by` INT(11) NOT NULL DEFAULT '0';
+
 ?>

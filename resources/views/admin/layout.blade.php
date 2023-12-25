@@ -20,7 +20,7 @@
                     </div>
                     <ul class="nav nav-pills nav-stacked">
                         <li class="@if(isset($sidebar)) @if($sidebar == 'sitting') active @endif @endif">
-                            <a href="{{url('/admin/sitting')}}"><i class="fa fa-users"></i>Sitting</a>
+                            <a href="{{url('/admin/sitting')}}"><i class="fa fa-sitemap"></i>Sitting</a>
                         </li>
                         <li class="@if(isset($sidebar)) @if($sidebar == 'locker') active @endif @endif">
                             <a href="{{url('/admin/locker')}}"><i class="fa fa-lock"></i>Locker</a>
@@ -32,9 +32,16 @@
                         <li class="@if(isset($sidebar)) @if($sidebar == 'shift') active @endif @endif">
                             <a href="{{url('/admin/shift/current')}}"><i class="fa fa-industry" aria-hidden="true"></i>Shift Status</a>
                         </li>
-                      <!--   <li class="@if(isset($sidebar)) @if($sidebar == 'pshift') active @endif @endif">
-                            <a href="{{url('/admin/shift/prev')}}"><i class="fa fa-industry" aria-hidden="true"></i>Previous Shift</a>
-                        </li> -->
+                        @if(!Auth::user()->priv == 1)
+                            <li class="@if(isset($sidebar)) @if($sidebar == 'users') active @endif @endif">
+                                <a href="{{url('/admin/users')}}"><i class="fa fa-users" aria-hidden="true"></i>Users</a>
+                            </li>
+                        @endif
+
+                        <li class="@if(isset($sidebar)) @if($sidebar == 'change_pass') active @endif @endif">
+                            <a href="{{url('/admin/reset-password')}}"><i class="fa fa-key" aria-hidden="true"></i>Reset Password</a>
+                        </li>
+
                         <li>
                             <a href="{{url('/logout')}}"><i class="fa fa-sign-out"></i>Logout</a>
                         </li>
@@ -66,6 +73,7 @@
     <script type="text/javascript" src="{{url('assets/scripts/core/app.js')}}" ></script>
     <script type="text/javascript" src="{{url('assets/scripts/core/services.js')}}" ></script>
     <script type="text/javascript" type="text/javascript" src="{{url('assets/scripts/core/controller.js')}}"></script>
+    <script type="text/javascript" type="text/javascript" src="{{url('assets/scripts/core/user_ctrl.js')}}"></script>
     <script>
       angular.module("app").constant("CSRF_TOKEN", "{{ csrf_token() }}");
     </script>

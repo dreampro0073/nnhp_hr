@@ -60,11 +60,25 @@
 		<h5>
 			MASSAGE
 		</h5>
-		
 		<div class="table-div" style="margin-bottom:2px;">
+			<div class="w-50">
+				<span class="text">Sl. No: <b>{{ $print_data->id }}</b></span>
+			</div>
+			
+		</div>
+		<div class="table-div" style="margin-bottom:2px;">
+			<div class="w-50">
+				<span class="text">No of Person: <b>{{ $print_data->no_of_person }}</b></span>
+			</div>
 			<div class="w-50">
 				<span class="text">Bill No: <b>{{ $print_data->unique_id }}</b></span>
 			</div>
+		</div>
+		<div class="table-div" style="margin-bottom:2px;">
+			<div class="w-50">
+				<span class="text">Time: <b>{{ $print_data->time_period }} Min</b></span>
+			</div>
+			
 			<div class="w-50">
 				<span class="text">Date: <b><?php echo date("d-m-Y"); ?></b></span>
 			</div>
@@ -74,21 +88,11 @@
 				<span class="text">Name: <b>{{$print_data->name}}</b></span>
 			</div>
 			<div class="w-50">
-				<span class="text">Amount: <b>{{$print_data->paid_amount}}</b></span>
+				<span class="text">Paid Amount: <b>{{$print_data->paid_amount}}</b></span>
 			</div>
 		</div>
-		
-		<div class="table-div" style="margin-bottom:2px;">
-			<div class="w-50">
-				<span class="text">Time: <b>{{date("h:i A",strtotime($print_data->in_time))}} to {{date("h:i A",strtotime($print_data->out_time))}}</b></span>
-			</div>
-			<div class="w-50">
-				<span class="text">Chair: <b>{{$print_data->chair_no}}</b> </span>
-			</div>
-		</div>
-		
+
 		<div style="margin-top: 20px;text-align: right;">
-			<!-- <span style="text-align:right;font-weight: bold;">E.&.O.E</span> -->
 			<span style="text-align:right;font-weight: bold;">** Non Refundable **</span>
 		</div>
 		<div style="margin-top:10px;text-align:center;">

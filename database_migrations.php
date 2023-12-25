@@ -30,4 +30,9 @@ ALTER TABLE `locker_penalty` ADD `date` DATE NULL DEFAULT NULL AFTER `shift`;
 
 ALTER TABLE `massage_entries` CHANGE `delete_by` `deleted_by` INT(11) NOT NULL DEFAULT '0';
 
+ALTER TABLE `locker_entries` CHANGE `locker_id` `locker_id` VARCHAR(55) NOT NULL DEFAULT '0';
+ALTER TABLE `locker_entries` CHANGE `locker_id` `locker_ids` VARCHAR(55) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '0';
+
+ALTER TABLE `locker_entries` ADD `checkin_date` TIMESTAMP NULL DEFAULT NULL AFTER `date`;
+
 ?>

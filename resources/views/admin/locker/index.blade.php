@@ -51,7 +51,9 @@
                            
                             <th>Pay Type</th>
                             <th>Total Amount</th>
-                            <th>#</th>
+                            @if(Auth::user()->priv == 1)
+                                <th>#</th>
+                            @endif
                             <th>#</th>
                         </tr>
                     </thead>
@@ -63,15 +65,21 @@
                             <td>@{{ item.mobile_no }}</td>
                             <td>@{{ item.nos }}</td>
                             <td>@{{ item.pnr_uid }}</td>
-                           
-                            <td>@{{ item.pay_by }}</td>
+                            
+                            <td>
+                                <span ng-if="item.pay_type == 1">Cash</span>
+                                <span ng-if="item.pay_type == 2">UPI</span>
+                            </td>  
+                            
                             <td>@{{ item.paid_amount }}</td>
+                            @if(Auth::user()->priv == 1)
                             <td>
                                 <div ng-if="item.deleted == 1">
                                     <span >@{{item.username}},</span>
                                     <span >@{{item.delete_time}}</span>
                                 </div>
                             </td>
+                            @endif 
                             <td>
                                 <a href="javascript:;" ng-click="checkoutLoker(item.id)" class="btn btn-danger btn-sm">Checkout</a>
                                 <a href="javascript:;" ng-click="edit(item.id)" class="btn btn-warning btn-sm">Edit</a>
@@ -80,14 +88,11 @@
                                 <button type="button" ng-click="delete(item.id)" class="btn btn-danger btn-sm">Delete</button>
                                 @endif
                             </td>
-
-
                         </tr>
                     </tbody>
                 </table>
                 <div ng-if="l_entries.length == 0" class="alert alert-danger">Data Not Found!</div>
-            </div>  
-            
+            </div>     
         </div>
     </div>
 @endsection

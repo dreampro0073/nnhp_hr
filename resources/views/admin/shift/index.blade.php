@@ -19,7 +19,8 @@
                     <tr>
                         <th rowspan="2"></th>
                         <th colspan="3">Last Hour</th>
-                        <th colspan="3">Shift</th>
+                        <th colspan="3">Your Collection</th>
+
                     </tr>
                     <tr>
                         <th>UPI</th>

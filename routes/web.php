@@ -33,6 +33,8 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::group(['prefix'=>"admin"], function(){
 		// Route::get('/print-post', [UserController::class,'printPost']);
 		Route::get('/dashboard',[AdminController::class,'dashboard']);
+		Route::get('/reset-password',[UserController::class,'resetPassword']);
+		Route::post('/reset-password',[UserController::class,'updatePassword']);
 		
 
 		Route::group(['prefix'=>"sitting"], function(){
@@ -59,6 +61,11 @@ Route::group(['middleware'=>'auth'],function(){
 			
 			
 		});
+
+		Route::group(['prefix'=>"users"], function(){
+			Route::get('/',[UserController::class,'users']);
+		});	
+
 	});
 });
 
@@ -76,8 +83,6 @@ Route::group(['prefix'=>"api"], function(){
 		Route::post('/init',[MassageController::class,'initMassage']);
 		Route::post('/edit-init',[MassageController::class,'editMassage']);
 		Route::post('/store',[MassageController::class,'store']);
-		Route::post('/change-time',[MassageController::class,'changeTime']);
-		Route::post('/check-mc',[MassageController::class,'checkMC']);
 		Route::get('/delete/{id}',[MassageController::class,'delete']);
 
 	});
@@ -95,5 +100,10 @@ Route::group(['prefix'=>"api"], function(){
 		Route::post('/init',[ShiftController::class,'init']);
 		Route::post('/prev-init',[ShiftController::class,'prevInit']);
 
+	});
+	Route::group(['prefix'=>"users"], function(){
+		Route::post('/init',[UserController::class,'initUsers']);
+		Route::post('/edit-init',[UserController::class,'editUser']);
+		Route::post('/store',[UserController::class,'storeUser']);
 	});
 });

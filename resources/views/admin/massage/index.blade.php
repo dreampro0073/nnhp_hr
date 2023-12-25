@@ -37,7 +37,9 @@
 
                             <th>Pay Type</th>
                             <th>Total Amount</th>
-                            <th>#</th>
+                            @if(Auth::user()->priv == 1)
+                                <th>#</th>
+                            @endif
                             <th>#</th>
                         </tr>
                     </thead>
@@ -52,12 +54,14 @@
                                 <span ng-if="item.pay_type == 2">UPI</span>
                             </td>
                             <td>@{{ item.paid_amount }}</td>
-                            <td>
-                                <div ng-if="item.deleted == 1">
-                                    <span >@{{item.username}},</span>
-                                    <span >@{{item.delete_time}}</span>
-                                </div>
-                            </td>
+                            @if(Auth::user()->priv == 1)
+                                <td>
+                                    <div ng-if="item.deleted == 1">
+                                        <span >@{{item.username}},</span>
+                                        <span >@{{item.delete_time}}</span>
+                                    </div>
+                                </td>
+                            @endif
                             <td>
                                 <!-- <a href="javascript:;" ng-click="edit(item.id)" class="btn btn-warning btn-sm">Edit</a> -->
                                 <!-- <button type="button" ng-click="edit(item.id)" class="btn btn-warning btn-sm">Edit</button> -->

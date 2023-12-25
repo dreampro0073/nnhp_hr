@@ -65,7 +65,7 @@
 				<span class="text">Bill No: <b>{{ $print_data->unique_id }}</b></span>
 			</div>
 			<div class="w-50">
-				<span class="text">Date: <b><?php echo date("d-m-Y"); ?></b></span>
+				<span class="text">Date: <b><?php // echo date("d-m-Y"); ?></b></span>
 			</div>
 		</div>
 		<div class="table-div">
@@ -79,7 +79,7 @@
 		</div>
 		<div class="table-div">
 			<div class="w-50">
-				<span class="text">Locker No: <b>{{ $print_data->locker_id }}</b></span>
+				<span class="text">Locker No: <b>{{ $print_data->locker_ids }}</b></span>
 			</div>
 
 			<div class="w-50">
@@ -96,10 +96,10 @@
 		</div>
 		<div style="margin-bottom:10px;">
 			<div>
-				<span class="text">In Time: <b>{{date("d-m-Y",strtotime($print_data->date))}}, {{date("h:i A",strtotime($print_data->check_in))}}</b></span>
+				<span class="text">In Time: <b>{{date("h:i a, d M y",strtotime($print_data->checkin_date))}}</b></span>
 			</div>
 			<div>
-				<span class="text">Out Time: <b>{{date("d-m-Y, h:i A",strtotime($print_data->checkout_date))}}</b></span>
+				<span class="text">Out Time: <b>{{date("h:i a, d M y",strtotime($print_data->checkout_date))}}</b></span>
 			</div>
 		</div>
 		<div style="margin-top:10px;text-align: right;">

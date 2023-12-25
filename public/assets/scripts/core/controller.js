@@ -3,8 +3,8 @@ app.controller('massageCtrl', function($scope , $http, $timeout , DBService) {
     $scope.formData = {
         paid_amount:0,
         time_period:'',
-        in_time:'',
-        out_time:'',
+        no_of_person:1,
+
     };
 
     $scope.filter = {};
@@ -33,15 +33,7 @@ app.controller('massageCtrl', function($scope , $http, $timeout , DBService) {
         });
     }
     $scope.add = function(){
-        DBService.postCall({}, '/api/massage/check-mc').then((data) => {
-            if (data.success) {
-                $scope.formData.in_time = data.in_time;
-                $scope.formData.chair_no = data.chair_no;
-                $("#massageModal").modal("show");
-            }
-        });
-
-        // $("#massageModal").modal("show");
+        $("#massageModal").modal("show");
     }
 
     $scope.hideModal = () => {
@@ -50,8 +42,7 @@ app.controller('massageCtrl', function($scope , $http, $timeout , DBService) {
         $scope.formData = {
             paid_amount:0,
             time_period:0,
-            in_time:'',
-            out_time:'',
+            no_of_person:1,
 
         };
         $scope.init();
@@ -59,23 +50,12 @@ app.controller('massageCtrl', function($scope , $http, $timeout , DBService) {
 
     $scope.changeTime = function(){
         
-        DBService.postCall({in_time:$scope.formData.in_time,time_period:$scope.formData.time_period}, '/api/massage/change-time').then((data) => {
-            if (data.success) {
-               $scope.formData.out_time = data.out_time;
-               $scope.changeAmount();
-            }
-        });
-    }
-
-
-
-    $scope.changeAmount = function(){
         $scope.formData.paid_amount = 0;
         if($scope.formData.time_period == 10){
-            $scope.formData.paid_amount = 50;
+            $scope.formData.paid_amount = 50*$scope.formData.no_of_person;
         }
         if($scope.formData.time_period == 20){
-            $scope.formData.paid_amount = 80;
+            $scope.formData.paid_amount = 80*$scope.formData.no_of_person;
         }
     }
 
@@ -90,16 +70,13 @@ app.controller('massageCtrl', function($scope , $http, $timeout , DBService) {
                 $scope.formData = {
                     paid_amount:0,
                     time_period:0,
-                    in_time:'',
-                    out_time:'',
+                    no_of_person:1,
+
                 };
                 $scope.init();
                 setTimeout(function(){
                     window.open(base_url+'/admin/massage/print/'+data.id, '_blank')
                 }, 800);
-
-            
-
             }
             $scope.loading = false;
         });
@@ -294,6 +271,8 @@ app.controller('lockerCtrl', function($scope , $http, $timeout , DBService) {
     $scope.pay_types = [];
     $scope.avail_lockers = [];
     $scope.days = [];
+
+    $scope.sl_lockers = [];
     
     $scope.init = function () {
         
@@ -313,9 +292,11 @@ app.controller('lockerCtrl', function($scope , $http, $timeout , DBService) {
 
     $scope.edit = function(entry_id){
         $scope.entry_id = entry_id;
+        $scope.sl_lockers = [];
         DBService.postCall({entry_id : $scope.entry_id}, '/api/locker/edit-init').then((data) => {
             if (data.success) {
                 $scope.formData = data.l_entry;
+                $scope.sl_lockers = data.sl_lockers;
                 $("#exampleModalCenter").modal("show");
             }
             
@@ -329,6 +310,7 @@ app.controller('lockerCtrl', function($scope , $http, $timeout , DBService) {
              DBService.postCall({entry_id : $scope.entry_id}, '/api/locker/checkout-init').then((data) => {
                 if (data.timeOut) {
                     $scope.formData = data.l_entry;
+                    
                     $("#checkoutLokerModel").modal("show");
                 }else{
                     $scope.init(); 
@@ -340,6 +322,7 @@ app.controller('lockerCtrl', function($scope , $http, $timeout , DBService) {
 
     $scope.add = function(){
         $scope.entry_id = 0;
+        $scope.sl_lockers = [];
         $("#exampleModalCenter").modal("show");    
     }
 
@@ -358,6 +341,12 @@ app.controller('lockerCtrl', function($scope , $http, $timeout , DBService) {
 
     $scope.onSubmit = function () {
         $scope.loading = true;
+        if($scope.sl_lockers.length == 0){
+            alert('Please select at least one locker');
+            return;
+        }
+
+        $scope.formData.sl_lockers = $scope.sl_lockers;
         DBService.postCall($scope.formData, '/api/locker/store').then((data) => {
             if (data.success) {
                 $scope.loading = false;
@@ -375,9 +364,6 @@ app.controller('lockerCtrl', function($scope , $http, $timeout , DBService) {
                 setTimeout(function(){
                     window.open(base_url+'/admin/locker/print/'+data.id,'_blank');
                 }, 800);
-
-                // window.location.href = base_url+'/admin/locker/print/'+data.id;
-                // window.open(base_url+'/admin/locker/print/'+data.id,'_blank');
 
             }
             $scope.loading = false;
@@ -405,24 +391,36 @@ app.controller('lockerCtrl', function($scope , $http, $timeout , DBService) {
         });
     }
 
-    $scope.calCheck = () => {
-        DBService.postCall({check_in:$scope.formData.check_in,no_of_day:$scope.formData.no_of_day}, '/api/locker/cal-check').then((data) => {
-            if (data.success) {
-               // console.log(data);
-               $scope.formData.check_out = data.check_out;
-               $scope.changeAmount();
-            }
-        });
-    }
+
+
+    // $scope.calCheck = () => {
+    //     DBService.postCall({check_in:$scope.formData.check_in,no_of_day:$scope.formData.no_of_day}, '/api/locker/cal-check').then((data) => {
+    //         if (data.success) {
+    //            $scope.formData.check_out = data.check_out;
+    //            $scope.changeAmount();
+    //         }
+    //     });
+    // }
+
+    // $scope.changeAmount = function(){
+    //     $scope.formData.paid_amount = 0;
+    //     var amount = 50;
+    //     if($scope.formData.no_of_day > 1){
+    //         amount  = amount + (($scope.formData.no_of_day-1)*70);
+    //     }
+
+    //     $scope.formData.paid_amount = amount;
+    // }
 
     $scope.changeAmount = function(){
         $scope.formData.paid_amount = 0;
+        console.log($scope.formData.paid_amount);
         var amount = 50;
         if($scope.formData.no_of_day > 1){
-            amount  = amount + (($scope.formData.no_of_day-1)*70);
+            amount  = (amount + (($scope.formData.no_of_day-1)*70));
         }
 
-        $scope.formData.paid_amount = amount;
+        $scope.formData.paid_amount = (amount*$scope.sl_lockers.length);
     }
 
     $scope.delete = function (id) {
@@ -432,7 +430,16 @@ app.controller('lockerCtrl', function($scope , $http, $timeout , DBService) {
                 $scope.init();
             });
         }
-       
+    }
+
+    $scope.insLocker = (locker_id) => {
+        let idx = $scope.sl_lockers.indexOf(locker_id);
+        if(idx == -1){
+            $scope.sl_lockers.push(locker_id);
+        }else{
+            $scope.sl_lockers.splice(idx,1);
+        }
+        $scope.changeAmount();
     }
 });
 

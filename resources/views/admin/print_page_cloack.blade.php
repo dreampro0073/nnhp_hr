@@ -51,22 +51,36 @@
 		<h4>
 			M/s New Nabaratna Hospitality Pvt. Ltd.
 		</h4>
-		<p style="padding:0 15px;text-align: center;">
-			AC Executive Lounge, Haridwar Railway Station<br>PF No. 1
+		<p class="m-space">
+			AC Executive Lounge, Guwahati Railway Station, PF No. 1
 		</p>
 		<h5>
 			GSTIN: 18AAICN4763E1ZA
 		</h5>
 		<h5>
-			LOCKER
+			Cloackroom - {{$print_data->id}}
 		</h5>
+		<div class="table-div">
+			<div class="w-50">
+				<span class="text">Sl. No: <b>{{ $print_data->id }}</b></span>
+			</div>
+			<div class="w-50">
+				<span class="text">No. Bag: <b>{{ $print_data->no_of_bag }}</b></span>
+			</div>
+			
+			
+		</div>
 		<div class="table-div">
 			<div class="w-50">
 				<span class="text">Bill No: <b>{{ $print_data->unique_id }}</b></span>
 			</div>
-			<div class="w-50">
-				<span class="text">Date: <b><?php echo date("d-m-Y"); ?></b></span>
-			</div>
+			
+			<!-- <div class="w-50">
+				<span class="text">Date: <b><?php // echo date("d-m-Y"); ?></b></span>
+			</div> -->
+			
+
+			
 		</div>
 		<div class="table-div">
 			<div class="w-50">
@@ -77,15 +91,7 @@
 			</div>
 
 		</div>
-		<div class="table-div">
-			<div class="w-50">
-				<span class="text">Locker No: <b>{{ $print_data->locker_id }}</b></span>
-			</div>
-
-			<div class="w-50">
-				<span class="text">NOS: <b>{{ $print_data->nos }}</b></span>
-			</div>
-		</div>
+		
 		<div class="table-div">
 			<div class="w-50">
 				<span class="text">PNR/ID No.: <b>{{$print_data->pnr_uid}}</b></span>
@@ -96,10 +102,10 @@
 		</div>
 		<div style="margin-bottom:10px;">
 			<div>
-				<span class="text">In Time: <b>{{date("d-m-Y",strtotime($print_data->date))}}, {{date("h:i A",strtotime($print_data->check_in))}}</b></span>
+				<span class="text">In Time: <b>{{date("h:i a, d M y",strtotime($print_data->checkin_date))}}</b></span>
 			</div>
 			<div>
-				<span class="text">Out Time: <b>{{date("d-m-Y, h:i A",strtotime($print_data->checkout_date))}}</b></span>
+				<span class="text">Out Time: <b>{{date("h:i a, d M y",strtotime($print_data->checkout_date))}}</b></span>
 			</div>
 		</div>
 		<div style="margin-top:10px;text-align: right;">
@@ -108,9 +114,9 @@
 		</div>
 		<div style="margin-top:10px;text-align:center;">
 
-			<p>
+			<!-- <p>
 				<b>*Note : Passengers must protect their own Mobile and luggage.</b>
-			</p>
+			</p> -->
 			<p style="margin-top:10px;font-size: 16px;">
 				<strong>Thanks Visit Again</strong>
 			</p>

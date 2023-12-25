@@ -16,25 +16,34 @@
                 <div class="ul" style="width:250px;background-color: #ececec59;position: fixed;top: 0;left: 0;height: 100vh;overflow-y: scroll;padding:0;">
                     <div style="padding:16px;">
                         <span style="font-size: 18px;font-weight: bold">M/s New Nabaratna Hospitality Pvt. Ltd.</span> 
-                        <div style="font-size: 12px; padding-top: 5px;">Haridwar Railway Station | GSTIN : 18AAICN4763E1ZA</div>
+                        <div style="font-size: 12px; padding-top: 5px;">AC Executive Lounge, Guwahati Railway Station, PF No. 1, GSTIN: 18AAICN4763E1ZA</div>
                     </div>
                     <ul class="nav nav-pills nav-stacked">
                         <li class="@if(isset($sidebar)) @if($sidebar == 'sitting') active @endif @endif">
-                            <a href="{{url('/admin/sitting')}}"><i class="fa fa-users"></i>Sitting</a>
+                            <a href="{{url('/admin/sitting')}}"><i class="fa fa-sitemap"></i>Sitting</a>
                         </li>
-                        <li class="@if(isset($sidebar)) @if($sidebar == 'locker') active @endif @endif">
-                            <a href="{{url('/admin/locker')}}"><i class="fa fa-lock"></i>Locker</a>
-                        </li>
+                       
                         <li class="@if(isset($sidebar)) @if($sidebar == 'massage') active @endif @endif">
                             <a href="{{url('/admin/massage')}}"><i class="fa fa-medkit" aria-hidden="true"></i>Massage</a>
+                        </li>
+
+                        <li class="@if(isset($sidebar)) @if($sidebar == 'cloackrooms') active @endif @endif">
+                            <a href="{{url('/admin/cloack-rooms')}}"><i class="fa fa-medkit" aria-hidden="true"></i>Cloackrooms</a>
                         </li>
                         
                         <li class="@if(isset($sidebar)) @if($sidebar == 'shift') active @endif @endif">
                             <a href="{{url('/admin/shift/current')}}"><i class="fa fa-industry" aria-hidden="true"></i>Shift Status</a>
                         </li>
-                      <!--   <li class="@if(isset($sidebar)) @if($sidebar == 'pshift') active @endif @endif">
-                            <a href="{{url('/admin/shift/prev')}}"><i class="fa fa-industry" aria-hidden="true"></i>Previous Shift</a>
+                        @if(!Auth::user()->privilege == 1)
+                            <li class="@if(isset($sidebar)) @if($sidebar == 'users') active @endif @endif">
+                                <a href="{{url('/admin/users')}}"><i class="fa fa-users" aria-hidden="true"></i>Users</a>
+                            </li>
+                        @endif
+
+                        <!-- <li class="@if(isset($sidebar)) @if($sidebar == 'change_pass') active @endif @endif">
+                            <a href="{{url('/admin/reset-password')}}"><i class="fa fa-key" aria-hidden="true"></i>Reset Password</a>
                         </li> -->
+
                         <li>
                             <a href="{{url('/logout')}}"><i class="fa fa-sign-out"></i>Logout</a>
                         </li>

@@ -1,8 +1,8 @@
 @extends('admin.layout')
 
 @section('main')
-    <div class="main" ng-controller="lockerCtrl" ng-init="init();"> 
-        @include('admin.locker.add')
+    <div class="main" ng-controller="cloackCtrl" ng-init="init();"> 
+        @include('admin.cloackrooms.add')
         <div class="card shadow mb-4 p-4">    
             <div class="filters" style="margin:24px 0;">
                 <form name="filterForm"  novalidate>
@@ -46,12 +46,13 @@
                             <th>Bill no</th>
                             <th>Name</th>
                             <th>Mobile No</th>
-                            <th>NOS</th>
+                            <th>No Of Bag</th>
                             <th>PNR</th>
-                           
                             <th>Pay Type</th>
                             <th>Total Amount</th>
-                            <th>#</th>
+                            @if(Auth::user()->priv == 1)
+                                <th>#</th>
+                            @endif
                             <th>#</th>
                         </tr>
                     </thead>
@@ -61,33 +62,36 @@
                             <td>@{{ item.unique_id }}</td>
                             <td>@{{ item.name }}</td>
                             <td>@{{ item.mobile_no }}</td>
-                            <td>@{{ item.nos }}</td>
+                            <td>@{{ item.no_of_bag }}</td>
                             <td>@{{ item.pnr_uid }}</td>
-                           
-                            <td>@{{ item.pay_by }}</td>
+                            
+                            <td>
+                                <span ng-if="item.pay_type == 1">Cash</span>
+                                <span ng-if="item.pay_type == 2">UPI</span>
+                            </td>  
+                            
                             <td>@{{ item.paid_amount }}</td>
+                            @if(Auth::user()->priv == 1)
                             <td>
                                 <div ng-if="item.deleted == 1">
                                     <span >@{{item.username}},</span>
                                     <span >@{{item.delete_time}}</span>
                                 </div>
                             </td>
+                            @endif 
                             <td>
                                 <a href="javascript:;" ng-click="checkoutLoker(item.id)" class="btn btn-danger btn-sm">Checkout</a>
                                 <a href="javascript:;" ng-click="edit(item.id)" class="btn btn-warning btn-sm">Edit</a>
-                                <a href="{{url('/admin/locker/print')}}/@{{item.id}}" class="btn btn-success btn-sm" target="_blank">Print</a>
+                                <a href="{{url('/admin/cloack-rooms/print')}}/@{{item.id}}" class="btn btn-success btn-sm" target="_blank">Print</a>
                                 @if(Auth::id() !=1)
                                 <button type="button" ng-click="delete(item.id)" class="btn btn-danger btn-sm">Delete</button>
                                 @endif
                             </td>
-
-
                         </tr>
                     </tbody>
                 </table>
                 <div ng-if="l_entries.length == 0" class="alert alert-danger">Data Not Found!</div>
-            </div>  
-            
+            </div>     
         </div>
     </div>
 @endsection

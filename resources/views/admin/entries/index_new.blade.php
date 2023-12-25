@@ -51,7 +51,9 @@
                             
                             <th>Pay Type</th>
                             <th>Paid Amount</th>
-                            <th>#</th>
+                            @if(Auth::user()->privilege == 1)
+                                <th>#</th>
+                            @endif
                             <th>#</th>
                         </tr>
                     </thead>
@@ -69,12 +71,15 @@
                                 <span ng-if="item.pay_type == 2">UPI</span>
                             </td>
                             <td>@{{ item.paid_amount }}</td>
+                            @if(Auth::user()->privilege == 1)
+
                             <td>
                                 <div ng-if="item.deleted == 1">
                                     <span >@{{item.username}},</span>
                                     <span >@{{item.delete_time}}</span>
                                 </div>
                             </td>
+                            @endif
                             <td>
                                 <a href="javascript:;" ng-click="edit(item.id)" class="btn btn-warning btn-sm">Edit</a>
                                 @if(Auth::id() !=1)

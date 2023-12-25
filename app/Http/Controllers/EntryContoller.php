@@ -18,8 +18,6 @@ use Dompdf\Options;
 
 class EntryContoller extends Controller {
 	public function initEntries(Request $request){
-
-		// $check_shift = Entry::checkShift();
 		$entries = Entry::select('sitting_entries.*','users.name as username')->leftJoin('users','users.id','=','sitting_entries.delete_by');
 		if($request->unique_id){
 			$entries = $entries->where('sitting_entries.unique_id', 'LIKE', '%'.$request->unique_id.'%');
@@ -93,19 +91,6 @@ class EntryContoller extends Controller {
 		$data['sitting_entry'] = $sitting_entry;
 		return Response::json($data, 200, []);
 	}
-	// public function calCheck(Request $request){
-		
-	// 	$check_in = $request->check_in;
-	// 	$hours_occ = $request->hours_occ;
-
-
-	// 	$ss_time = strtotime(date("H:i:s",strtotime($check_in)));
-	// 	$new_time = date("H:i:s", strtotime('+'.$hours_occ.' hours', $ss_time));
-
-	// 	$data['success'] = true;
-	// 	$data['check_out'] = $new_time;
-	// 	return Response::json($data, 200, []);
-	// }
 
 	public function calCheck(Request $request){
 		
@@ -122,7 +107,6 @@ class EntryContoller extends Controller {
 	}
 
 	public function store(Request $request){
-
 		$check_shift = Entry::checkShift();
 
 		$cre = [
@@ -215,59 +199,31 @@ class EntryContoller extends Controller {
 		return Response::json($data, 200, []);
 
 	}
-
-	public function printReports(){
-		$print_data = new \stdClass;
-		$data = Entry::totalShiftData();
-		$print_data->type = "shift";
-		$print_data->total_shift_cash = $data['total_shift_cash']; 
-		$print_data->total_shift_upi = $data['total_shift_upi'];
-		$print_data->total_collection = $data['total_collection'];
-		$print_data->last_hour_upi_total = $data['last_hour_upi_total'];
-		$print_data->last_hour_cash_total = $data['last_hour_cash_total'];
-		$print_data->last_hour_total = $data['last_hour_total'];
-		$print_data->check_shift = $data['check_shift'];
-		$print_data->shift_date = $data['shift_date'];
-		$this->printFinal($print_data);
-	}
 	
 	public function printPost($id = 0){
 
 
-        $print_data = DB::table('sitting_entries')->where('id', $id)->first();
+		$print_data = DB::table('sitting_entries')->where('id', $id)->first();
 		$print_data->type = "silip";
-        
         $print_data->total_member = $print_data->no_of_adults + $print_data->no_of_children + $print_data->no_of_baby_staff;
-        $print_data->adult_amount = 0;
-        $print_data->children_amount = 0;
-        $hours = $print_data->hours_occ;
+        $print_data->adult_first_hour_amount = 0;
+        $print_data->children_first_hour_amount = 0;
+        $hours = $print_data->hours_occ - 1;
+        $print_data->adult_other_hour_amount = 0;
+        $print_data->children_other_hour_amount = 0;
 
-        if($hours > 0) {
-            $print_data->adult_amount = $print_data->no_of_adults * 30 * $hours;
-            $print_data->children_amount = $print_data->no_of_children * 20 * $hours;
+        if($print_data->hours_occ > 0) {
+            $print_data->adult_first_hour_amount = $print_data->no_of_adults * 30;
+            $print_data->children_first_hour_amount = $print_data->no_of_children * 20;
+        }      
+        
+        if($hours > 0){
+            $print_data->adult_other_hour_amount = $print_data->no_of_adults * 20 * $hours;
+            $print_data->children_other_hour_amount = $print_data->no_of_children * 10 * $hours; 
         }
               
 		return view('admin.print_sitting',compact('print_data'));
 	}
-
-	public function printFinal($print_data){
-
-		// return view('admin.print_sitting', compact('print_data'));
-        // $options = new Options();
-        // $options->set('isRemoteEnabled', true);
-
-        // $dompdf = new Dompdf($options);
-
-        // define("DOMPDF_UNICODE_ENABLED", true);
-
-        // $html = view('admin.print_page_sitting', compact('print_data'));
-
-        // $dompdf->loadHtml($html);
-        // $dompdf->setPaper([0,0,300,405]);
-        // $dompdf->render();
-        // $dompdf->stream(date("dmY",strtotime("now")).'.pdf',array("Attachment" => false));
-    }
-
     public function delete($id){
     	DB::table('sitting_entries')->where('id',$id)->update([
     		'deleted' => 1,

@@ -5,7 +5,7 @@
         <div class="card shadow mb-4 p-4">    
             <div class="row">
                 <div class="col-md-6">
-                    <h2 class="">Total Shift Collection (@{{shift_date}} - @{{check_shift}})</h2>
+                    <h2 class="">Total Shift Collection (@{{shift_date}})</h2>
                 </div>
                 <div class="col-md-6 text-right" style="padding-top: 25px;">
                     <a href="{{url('/admin/shift/print/1')}}" class="btn btn-sm btn-warning"  target="_blank">
@@ -14,12 +14,12 @@
                 </div>
             </div>
             <hr>
-             <table class="table table-bordered table-striped" style="width:100%;">
+            <table class="table table-bordered table-striped" style="width:100%;">
                 <thead>
                     <tr>
                         <th rowspan="2"></th>
                         <th colspan="3">Last Hour</th>
-                        <th colspan="3">Shift</th>
+                        <th colspan="3">Your Collection</th>
                     </tr>
                     <tr>
                         <th>UPI</th>
@@ -88,28 +88,28 @@
                     </tr>
                     <tr>
                        <td>
-                           Locker
+                           Cloackroom
                        </td> 
                         <td>
-                            @{{locker_data.last_hour_upi_total}}
+                            @{{cloack_data.last_hour_upi_total}}
                         </td>
                         <td>
-                            @{{locker_data.last_hour_cash_total}}
+                            @{{cloack_data.last_hour_cash_total}}
 
                         </td>
                         <td>
-                            @{{locker_data.last_hour_total}}
+                            @{{cloack_data.last_hour_total}}
                         </td>
 
                         <td>
-                            @{{locker_data.total_shift_upi}}
+                            @{{cloack_data.total_shift_upi}}
                         </td>
                         <td>
-                            @{{locker_data.total_shift_cash}}
+                            @{{cloack_data.total_shift_cash}}
 
                         </td>
                         <td>
-                            @{{locker_data.total_collection}}
+                            @{{cloack_data.total_collection}}
 
                         </td>
                     </tr>
@@ -139,7 +139,7 @@
 
                         </td>
                     </tr>
-
+                
                 </tbody>
             </table>  
             

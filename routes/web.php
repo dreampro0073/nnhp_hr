@@ -5,7 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EntryContoller;
 use App\Http\Controllers\MassageController;
-use App\Http\Controllers\LockerController;
+use App\Http\Controllers\CloakRoomController;
 use App\Http\Controllers\ShiftController;
 
 /*
@@ -31,34 +31,36 @@ Route::get('/logout',function(){
 
 Route::group(['middleware'=>'auth'],function(){
 	Route::group(['prefix'=>"admin"], function(){
-		// Route::get('/print-post', [UserController::class,'printPost']);
 		Route::get('/dashboard',[AdminController::class,'dashboard']);
-		
+		Route::get('/reset-password',[UserController::class,'resetPassword']);
+		Route::post('/reset-password',[UserController::class,'updatePassword']);
 
+		
 		Route::group(['prefix'=>"sitting"], function(){
 			Route::get('/',[AdminController::class,'sitting']);
 			Route::get('/print/{id?}', [EntryContoller::class,'printPost']);
 			Route::get('/print-report', [EntryContoller::class,'printReports']);
 
 		});
+
+		Route::group(['prefix'=>"shift"], function(){
+			Route::get('/current',[ShiftController::class,'index']);
+			Route::get('/print/{type}',[ShiftController::class,'print']);
+		});
+
 		Route::group(['prefix'=>"massage"], function(){
 			Route::get('/',[MassageController::class,'massage']);
 			Route::get('/print/{id?}', [MassageController::class,'printPost']);
 			
 		});
-		Route::group(['prefix'=>"locker"], function(){
-			Route::get('/',[LockerController::class,'index']);
-			Route::get('/print/{id?}', [LockerController::class,'printPost']);
+		Route::group(['prefix'=>"cloack-rooms"], function(){
+			Route::get('/',[CloakRoomController::class,'index']);
+			Route::get('/print/{id?}', [CloakRoomController::class,'printPost']);
 			
-		});		
-
-		Route::group(['prefix'=>"shift"], function(){
-			Route::get('/current',[ShiftController::class,'index']);
-			Route::get('/prev',[ShiftController::class,'prevIndex']);
-			Route::get('/print/{type}',[ShiftController::class,'print']);
-			
-			
-		});
+		});	
+		Route::group(['prefix'=>"users"], function(){
+			Route::get('/',[UserController::class,'users']);
+		});	
 	});
 });
 
@@ -71,29 +73,33 @@ Route::group(['prefix'=>"api"], function(){
 		Route::get('/delete/{id}',[EntryContoller::class,'delete']);
 		
 	});
+	Route::group(['prefix'=>"shift"], function(){
+		Route::post('/init',[ShiftController::class,'init']);
+		Route::post('/prev-init',[ShiftController::class,'prevInit']);
+
+	});
 
 	Route::group(['prefix'=>"massage"], function(){
 		Route::post('/init',[MassageController::class,'initMassage']);
 		Route::post('/edit-init',[MassageController::class,'editMassage']);
 		Route::post('/store',[MassageController::class,'store']);
-		Route::post('/change-time',[MassageController::class,'changeTime']);
-		Route::post('/check-mc',[MassageController::class,'checkMC']);
 		Route::get('/delete/{id}',[MassageController::class,'delete']);
 
 	});
-	Route::group(['prefix'=>"locker"], function(){
-		Route::post('/init',[LockerController::class,'initLocker']);
-		Route::post('/edit-init',[LockerController::class,'editLocker']);
-		Route::post('/store',[LockerController::class,'store']);
-		Route::post('/cal-check',[LockerController::class,'calCheck']);
-		Route::post('/checkout-init',[LockerController::class,'checkoutInit']);
-		Route::post('/checkout-store',[LockerController::class,'checkoutStore']);
-		Route::get('/delete/{id}',[LockerController::class,'delete']);
+
+	Route::group(['prefix'=>"cloack-rooms"], function(){
+		Route::post('/init',[CloakRoomController::class,'initLocker']);
+		Route::post('/edit-init',[CloakRoomController::class,'editLocker']);
+		Route::post('/store',[CloakRoomController::class,'store']);
+		Route::post('/cal-check',[CloakRoomController::class,'calCheck']);
+		Route::post('/checkout-init',[CloakRoomController::class,'checkoutInit']);
+		Route::post('/checkout-store',[CloakRoomController::class,'checkoutStore']);
+		Route::get('/delete/{id}',[CloakRoomController::class,'delete']);
 
 	});
-	Route::group(['prefix'=>"shift"], function(){
-		Route::post('/init',[ShiftController::class,'init']);
-		Route::post('/prev-init',[ShiftController::class,'prevInit']);
-
+	Route::group(['prefix'=>"users"], function(){
+		Route::post('/init',[UserController::class,'initUsers']);
+		Route::post('/edit-init',[UserController::class,'editUser']);
+		Route::post('/store',[UserController::class,'storeUser']);
 	});
 });

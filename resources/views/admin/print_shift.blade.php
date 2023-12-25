@@ -51,10 +51,10 @@
 		<h4>
 			M/s New Nabaratna Hospitality Pvt. Ltd.
 		</h4>
-		<p style="padding:0 15px;text-align: center;">
-			AC Executive Lounge, Haridwar Railway Station<br>PF No. 1
+		<p class="m-space">
+			AC Executive Lounge, Guwahati Railway Station, PF No. 1
 		</p>
-		<h5>
+		<h5 style="margin-bottom:8px;">
 			GSTIN: 18AAICN4763E1ZA
 		</h5>
 		<table style="width:100%;margin: -1;" border="1" cellpadding="4" cellspacing="0" >
@@ -105,24 +105,6 @@
                   
                    
                 </tr>
-                 <tr>
-                   <td>
-                       <b>Locker </b>
-                   </td> 
-                   
-                    <td>
-                        {{$locker_data['total_shift_upi']}}
-                    </td>
-                    <td>
-                        {{$locker_data['total_shift_cash']}}
-                    </td>
-                    <td>
-                        {{$locker_data['total_collection']}}
-                    </td>
-                  
-                   
-                </tr>
-                
 
                 <tr>
                    <td>
@@ -142,7 +124,7 @@
                 </tr>
 
             </tbody>
-        </table>  
+        </table>    
 
         <h5 style="margin-top:16px;">
 			{{Auth::user()->name}} -  {{$shitting_data['shift_date']}}

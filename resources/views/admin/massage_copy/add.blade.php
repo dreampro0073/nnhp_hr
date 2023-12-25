@@ -21,15 +21,20 @@
                             <label>Name</label>
                             <input type="text" class="form-control" ng-model="formData.name" required>
                         </div>
-                        
+                        <div class="col-md-4 form-group">
+                            <label>In Time</label>
+                            <input type="text" class="form-control" date-time-picker ng-model="formData.in_time" ng-change="changeTime()" dataobj="formData" dataitem="in_time" id="timePicker">
+                        </div>
                         <div class="col-md-4 form-group">
                             <label>Pay Type</label>
                             <select ng-model="formData.pay_type" class="form-control" required >
                                 <option value="">--select--</option>
                                 <option ng-repeat="item in pay_types" ng-value="@{{item.value}}">@{{ item.label}}</option>
                             </select>
-                            
                         </div>
+                        
+                    </div>
+                    <div class="row">
                         <div class="col-md-4 form-group">
                             <label>Time Period</label>
                             <select ng-model="formData.time_period" class="form-control" ng-change="changeTime()" required convert-to-number>
@@ -38,36 +43,19 @@
                                 <option value="20">20 Minutes</option>
                             </select>
                         </div>
-                        
-                    </div>
-                    <div class="row">
-<<<<<<< HEAD
-                        
                         <div class="col-md-4 form-group">
                             <label>Paid Amount</label>
                             <input type="number" ng-model="formData.paid_amount" class="form-control" readonly />
-                        </div> 
-                         <div class="col-md-8 form-group">
-=======
+                        </div>                        
                         <div class="col-md-4 form-group">
-                            <label>No of Person</label>
-                            <select ng-model="formData.no_of_person" class="form-control" ng-change="changeTime()" required convert-to-number>
-                                <?php for ($i=1; $i <= 10; $i++) { ?>
-                                    <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                <?php } ?>
-                                
-                            </select>
+                            <label>Out Time</label>
+                            <input type="text" class="form-control" ng-model="formData.out_time" readonly>
                         </div>
                         
-                        <div class="col-md-4 form-group">
-                            <label>Paid Amount</label>
-                            <input type="number" ng-model="formData.paid_amount" class="form-control" readonly />
-                        </div> 
-                         <div class="col-md-4 form-group">
->>>>>>> 195b1d102ab728f04b99cb71ab36dad375becfcc
+                        <div class="col-md-12 form-group">
                             <label>Remarks</label>
-                            <input type="text"  ng-model="formData.remarks" class="form-control">
-                        </div>                       
+                            <textarea ng-model="formData.remarks" class="form-control"></textarea>
+                        </div>
                     </div>
                     <div class="pt-4">
                         <button type="submit" class="btn btn-primary" ng-disabled="loading">

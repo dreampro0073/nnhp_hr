@@ -26,11 +26,15 @@ class MassageController extends Controller {
 			$m_entries = $m_entries->where('massage_entries.unique_id', 'LIKE', '%'.$request->unique_id.'%');
 		}	
 
+<<<<<<< HEAD
 		if(Auth::id() != 1){
+=======
+		if(Auth::user()->priv != 1){
+>>>>>>> 195b1d102ab728f04b99cb71ab36dad375becfcc
 			$m_entries = $m_entries->where('deleted',0);
 		}
 		$m_entries = $m_entries->orderBy('id','DESC');
-		if(Auth::id() != 1){
+		if(Auth::user()->priv != 1){
 			$m_entries = $m_entries->take(500);
 		}
 		$m_entries = $m_entries->get();
@@ -87,6 +91,7 @@ class MassageController extends Controller {
 			$entry->remarks = $request->remarks;
 			$entry->time_period = $request->time_period;
 			$entry->shift = $check_shift;
+			$entry->no_of_person = $request->has('no_of_person')?$request->no_of_person:0;
 			$entry->added_by = Auth::id();
 
 			$date = Entry::getPDate();
@@ -117,4 +122,8 @@ class MassageController extends Controller {
 		
 		return Response::json($data, 200, []);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 195b1d102ab728f04b99cb71ab36dad375becfcc

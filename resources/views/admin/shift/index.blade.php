@@ -20,6 +20,10 @@
                         <th rowspan="2"></th>
                         <th colspan="3">Last Hour</th>
                         <th colspan="3">Your Collection</th>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 195b1d102ab728f04b99cb71ab36dad375becfcc
                     </tr>
                     <tr>
                         <th>UPI</th>

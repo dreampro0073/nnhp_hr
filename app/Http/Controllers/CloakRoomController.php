@@ -13,7 +13,11 @@ use App\Models\Massage, App\Models\User;
 use App\Models\Entry;
 use App\Models\CloakRoom;
 
+<<<<<<< HEAD:app/Http/Controllers/CloakRoomController.php
 class CloakRoomController extends Controller {	
+=======
+class LockerController extends Controller {	
+>>>>>>> 195b1d102ab728f04b99cb71ab36dad375becfcc:app/Http/Controllers/LockerController.php
 	public function index(){
 		return view('admin.cloackrooms.index', [
             "sidebar" => "cloackrooms",
@@ -22,7 +26,11 @@ class CloakRoomController extends Controller {
 	}
 	
 	public function initLocker(Request $request){
+<<<<<<< HEAD:app/Http/Controllers/CloakRoomController.php
 		$l_entries = DB::table('cloakroom_entries')->select('cloakroom_entries.*','users.name as username')->leftJoin('users','users.id','=','cloakroom_entries.delete_by');
+=======
+		$l_entries = DB::table('locker_entries')->select('locker_entries.*','users.name as username')->leftJoin('users','users.id','=','locker_entries.delete_by');
+>>>>>>> 195b1d102ab728f04b99cb71ab36dad375becfcc:app/Http/Controllers/LockerController.php
 		if($request->unique_id){
 			$l_entries = $l_entries->where('cloakroom_entries.unique_id', 'LIKE', '%'.$request->unique_id.'%');
 		}		
@@ -47,7 +55,11 @@ class CloakRoomController extends Controller {
 		$pay_types = Entry::payTypes();
 		$days = Entry::days();
 		$show_pay_types = Entry::showPayTypes();
+<<<<<<< HEAD:app/Http/Controllers/CloakRoomController.php
 		
+=======
+		$avail_lockers = Entry::getAvailLockers();
+>>>>>>> 195b1d102ab728f04b99cb71ab36dad375becfcc:app/Http/Controllers/LockerController.php
 
 		$data['success'] = true;
 		$data['l_entries'] = $l_entries;
@@ -60,6 +72,8 @@ class CloakRoomController extends Controller {
 	public function editLocker(Request $request){
 		$l_entry = CloakRoom::where('id', $request->entry_id)->first();
 
+		$sl_lockers = [];
+
 		if($l_entry){
 			$l_entry->mobile_no = $l_entry->mobile_no*1;
 			$l_entry->train_no = $l_entry->train_no*1;
@@ -67,11 +81,32 @@ class CloakRoomController extends Controller {
 			$l_entry->paid_amount = $l_entry->paid_amount*1;
 			$l_entry->check_in = date("d-m-Y",strtotime($l_entry->date))." ".date("h:i A",strtotime($l_entry->check_in));
 			$l_entry->check_out = date("d-m-Y h:i A",strtotime($l_entry->checkout_date));
+<<<<<<< HEAD:app/Http/Controllers/CloakRoomController.php
+=======
+			$sl_lockers = explode(',', $l_entry->locker_ids);
+>>>>>>> 195b1d102ab728f04b99cb71ab36dad375becfcc:app/Http/Controllers/LockerController.php
 		}
 
 		$data['success'] = true;
 		$data['l_entry'] = $l_entry;
+<<<<<<< HEAD:app/Http/Controllers/CloakRoomController.php
 		
+=======
+		$data['sl_lockers'] = $sl_lockers;
+		return Response::json($data, 200, []);
+	}
+	public function calCheck(Request $request){
+		
+		$check_in = $request->check_in;
+		$no_of_day = $request->no_of_day;
+
+		$hours = 24*$no_of_day;
+		$ss_time = strtotime(date("h:i A",strtotime($check_in)));
+		$new_time = date("h:i A", strtotime('+'.$hours.' hours', $ss_time));
+
+		$data['success'] = true;
+		$data['check_out'] = $new_time;
+>>>>>>> 195b1d102ab728f04b99cb71ab36dad375becfcc:app/Http/Controllers/LockerController.php
 		return Response::json($data, 200, []);
 	}
 	
@@ -119,6 +154,8 @@ class CloakRoomController extends Controller {
 			$entry->paid_amount = $request->paid_amount;
 			$entry->save();
 
+			$entry->locker_ids = implode(',',$request->sl_lockers);
+
 			$no_of_min = $request->no_of_day*24*60;
 
 			// $entry->check_out = date("H:i:s",strtotime("+".$no_of_min." minutes",strtotime($entry->check_in)));
@@ -136,6 +173,13 @@ class CloakRoomController extends Controller {
 			$entry->added_by = Auth::id();
 			$entry->save();
 
+<<<<<<< HEAD:app/Http/Controllers/CloakRoomController.php
+=======
+			DB::table('lockers')->whereIn('id',$request->sl_lockers)->update([
+				'status' => 1,
+			]);
+			
+>>>>>>> 195b1d102ab728f04b99cb71ab36dad375becfcc:app/Http/Controllers/LockerController.php
 			$data['id'] = $entry->id;
 			$data['success'] = true;
 		} else {
@@ -227,7 +271,11 @@ class CloakRoomController extends Controller {
 			$l_entry->train_no = $l_entry->train_no*1;
 			$l_entry->pnr_uid = $l_entry->pnr_uid*1;
 			$l_entry->paid_amount = $l_entry->paid_amount*1;
+<<<<<<< HEAD:app/Http/Controllers/CloakRoomController.php
 			$l_entry->balance = $day*70*$l_entry->no_of_bag;
+=======
+			$l_entry->balance = $day*70*sizeof($locker_ids);
+>>>>>>> 195b1d102ab728f04b99cb71ab36dad375becfcc:app/Http/Controllers/LockerController.php
 			$l_entry->total_balance = $l_entry->paid_amount+$l_entry->balance;
 			$l_entry->day = $day;
 
@@ -265,6 +313,9 @@ class CloakRoomController extends Controller {
 			'created_at' => date('Y-m-d H:i:s'),
 		]);
 
+		$locker_ids = explode(',', $request->locker_ids);
+
+		DB::table('lockers')->whereIn('id',$locker_ids)->update(['status'=>0]);
 		$data['success'] = true;
 		return Response::json($data, 200, []);
     }

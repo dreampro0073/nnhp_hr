@@ -71,6 +71,11 @@ class UserController extends Controller {
 
     }
 
+<<<<<<< HEAD
+=======
+	}
+
+>>>>>>> 195b1d102ab728f04b99cb71ab36dad375becfcc
     public function resetPassword(){
         $sidebar = 'change_pass';
         return view('admin.users.reset_password',compact('sidebar'));
@@ -182,7 +187,11 @@ class UserController extends Controller {
             $user->name = $request->name;
             $user->email = $request->email;
             $user->mobile = $request->mobile;    
+<<<<<<< HEAD
             $user->privilege = 2;    
+=======
+            $user->priv = 2;    
+>>>>>>> 195b1d102ab728f04b99cb71ab36dad375becfcc
             
             $user->save();
             $data['success'] = true;

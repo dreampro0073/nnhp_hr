@@ -34,6 +34,10 @@ Route::group(['middleware'=>'auth'],function(){
 		Route::get('/dashboard',[AdminController::class,'dashboard']);
 		Route::get('/reset-password',[UserController::class,'resetPassword']);
 		Route::post('/reset-password',[UserController::class,'updatePassword']);
+<<<<<<< HEAD
+=======
+		
+>>>>>>> 195b1d102ab728f04b99cb71ab36dad375becfcc
 
 		
 		Route::group(['prefix'=>"sitting"], function(){
@@ -53,6 +57,7 @@ Route::group(['middleware'=>'auth'],function(){
 			Route::get('/print/{id?}', [MassageController::class,'printPost']);
 			
 		});
+<<<<<<< HEAD
 		Route::group(['prefix'=>"cloack-rooms"], function(){
 			Route::get('/',[CloakRoomController::class,'index']);
 			Route::get('/print/{id?}', [CloakRoomController::class,'printPost']);
@@ -61,6 +66,13 @@ Route::group(['middleware'=>'auth'],function(){
 		Route::group(['prefix'=>"users"], function(){
 			Route::get('/',[UserController::class,'users']);
 		});	
+=======
+
+		Route::group(['prefix'=>"users"], function(){
+			Route::get('/',[UserController::class,'users']);
+		});	
+
+>>>>>>> 195b1d102ab728f04b99cb71ab36dad375becfcc
 	});
 });
 

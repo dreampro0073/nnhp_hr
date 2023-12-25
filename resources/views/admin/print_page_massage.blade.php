@@ -63,16 +63,33 @@
 		<div class="table-div" style="margin-bottom:2px;">
 			<div class="w-50">
 				<span class="text">Sl. No: <b>{{ $print_data->id }}</b></span>
+<<<<<<< HEAD
 			</div>
 			<div class="w-50">
 				<span class="text">Time: <b>{{ $print_data->time_period }} Min</b></span>
+=======
 			</div>
 			
 		</div>
 		<div class="table-div" style="margin-bottom:2px;">
 			<div class="w-50">
-				<span class="text">Bill No: <b>{{ $print_data->unique_id }}</b></span>
+				<span class="text">No of Person: <b>{{ $print_data->no_of_person }}</b></span>
 			</div>
+			<div class="w-50">
+				<span class="text">Bill No: <b>{{ $print_data->unique_id }}</b></span>
+>>>>>>> 195b1d102ab728f04b99cb71ab36dad375becfcc
+			</div>
+			
+		</div>
+		<div class="table-div" style="margin-bottom:2px;">
+			<div class="w-50">
+<<<<<<< HEAD
+				<span class="text">Bill No: <b>{{ $print_data->unique_id }}</b></span>
+=======
+				<span class="text">Time: <b>{{ $print_data->time_period }} Min</b></span>
+>>>>>>> 195b1d102ab728f04b99cb71ab36dad375becfcc
+			</div>
+			
 			<div class="w-50">
 				<span class="text">Date: <b><?php echo date("d-m-Y"); ?></b></span>
 			</div>

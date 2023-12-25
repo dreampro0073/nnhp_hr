@@ -29,7 +29,11 @@
 
                         <div class="col-md-4 form-group">
                             <label>Email/Username</label>
+<<<<<<< HEAD
                             <input type="text" ng-model="formData.email" class="form-control" ng-readonly="user_id !=0" />
+=======
+                            <input type="text" ng-model="formData.email" class="form-control"  />
+>>>>>>> 195b1d102ab728f04b99cb71ab36dad375becfcc
                         </div>
                     </div>
 

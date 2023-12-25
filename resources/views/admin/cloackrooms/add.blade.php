@@ -27,9 +27,16 @@
                             <input type="number" ng-model="formData.mobile_no" class="form-control" required />
                         </div>
                         <div class="col-md-4 form-group">
+<<<<<<< HEAD:resources/views/admin/cloackrooms/add.blade.php
                             <label>No Of Bag</label>
                             <input type="number" ng-model="formData.no_of_bag" class="form-control" ng-keyup="changeAmount()" />
                         </div>    
+=======
+                            <label>NOS</label>
+                            <input type="number" ng-model="formData.nos" class="form-control" />
+                        </div>
+                        
+>>>>>>> 195b1d102ab728f04b99cb71ab36dad375becfcc:resources/views/admin/locker/add.blade.php
                     </div>
                     <div class="row">
                         <div class="col-md-3 form-group" ng-if="formData.id > 0">
@@ -48,6 +55,7 @@
                                 <option ng-repeat="item in days" value="@{{item.value}}">@{{ item.label}}</option>
                             </select>
                         </div>
+<<<<<<< HEAD:resources/views/admin/cloackrooms/add.blade.php
                         <div class="col-md-3 form-group">
                             <label>Pay Type</label>
                             <select ng-model="formData.pay_type" class="form-control" required  convert-to-number>
@@ -57,6 +65,29 @@
                         </div>
                           
                         <div class="col-md-3 form-group">
+=======
+                        <div class="col-md-3 form-group">
+                            <label>Pay Type</label>
+                            <select ng-model="formData.pay_type" class="form-control" required  convert-to-number>
+                                <option value="">--select--</option>
+                                <option ng-repeat="item in pay_types" value="@{{item.value}}">@{{ item.label}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12 form-group" ng-if="entry_id == 0">
+                            <label>Available Locker</label>
+                            <br>
+                            <span ng-repeat="item in avail_lockers">
+                               <label> <input type="checkbox" ng-click="insLocker(item.id)">&nbsp;@{{item.locker_no}}</label> &nbsp;&nbsp;
+                            </span>
+                        </div>
+                        <div class="col-md-3 form-group" ng-if="entry_id != 0">
+                            <label>Locker</label>
+                            <input type="text" ng-model="formData.locker_ids" class="form-control" required readonly />
+
+                        </div>
+                        
+                        <div class="col-md-3 form-group">
+>>>>>>> 195b1d102ab728f04b99cb71ab36dad375becfcc:resources/views/admin/locker/add.blade.php
                             <label>Paid Amount</label>
                             <input type="number" ng-model="formData.paid_amount" class="form-control" readonly />
                         </div>                        
@@ -139,8 +170,13 @@
                            
                         </div>
                         <div class="col-md-3 form-group" ng-if="entry_id != 0">
+<<<<<<< HEAD:resources/views/admin/cloackrooms/add.blade.php
                             <label>No Of Bag</label>
                             <input type="text" ng-model="formData.no_of_bag" class="form-control"  readonly />
+=======
+                            <label>Lockers</label>
+                            <input type="text" ng-model="formData.locker_ids" class="form-control"  readonly />
+>>>>>>> 195b1d102ab728f04b99cb71ab36dad375becfcc:resources/views/admin/locker/add.blade.php
 
                         </div>
                     </div>

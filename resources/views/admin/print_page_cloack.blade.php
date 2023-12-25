@@ -65,7 +65,11 @@
 				<span class="text">Sl. No: <b>{{ $print_data->id }}</b></span>
 			</div>
 			<div class="w-50">
+<<<<<<< HEAD:resources/views/admin/print_page_cloack.blade.php
 				<span class="text">No. Bag: <b>{{ $print_data->no_of_bag }}</b></span>
+=======
+				<span class="text">Date: <b><?php // echo date("d-m-Y"); ?></b></span>
+>>>>>>> 195b1d102ab728f04b99cb71ab36dad375becfcc:resources/views/admin/print_page_locker.blade.php
 			</div>
 			
 			
@@ -84,7 +88,11 @@
 		</div>
 		<div class="table-div">
 			<div class="w-50">
+<<<<<<< HEAD:resources/views/admin/print_page_cloack.blade.php
 				<span class="text">Name: <b>{{ $print_data->name }}</b></span>
+=======
+				<span class="text">Locker No: <b>{{ $print_data->locker_ids }}</b></span>
+>>>>>>> 195b1d102ab728f04b99cb71ab36dad375becfcc:resources/views/admin/print_page_locker.blade.php
 			</div>
 			<div class="w-50">
 				<span class="text">Mobile:<b>{{$print_data->mobile_no}}</b></span>

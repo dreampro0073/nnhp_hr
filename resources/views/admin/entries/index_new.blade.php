@@ -51,7 +51,11 @@
                             
                             <th>Pay Type</th>
                             <th>Paid Amount</th>
+<<<<<<< HEAD
                             @if(Auth::user()->privilege == 1)
+=======
+                            @if(Auth::user()->priv == 1)
+>>>>>>> 195b1d102ab728f04b99cb71ab36dad375becfcc
                                 <th>#</th>
                             @endif
                             <th>#</th>
@@ -65,13 +69,17 @@
                             <td>@{{ item.mobile_no }}</td>
 
                             <td>@{{ item.pnr_uid }}</td>
-                           
+                            
                             <td>
                                 <span ng-if="item.pay_type == 1">Cash</span>
                                 <span ng-if="item.pay_type == 2">UPI</span>
                             </td>
                             <td>@{{ item.paid_amount }}</td>
+<<<<<<< HEAD
                             @if(Auth::user()->privilege == 1)
+=======
+                            @if(Auth::user()->priv == 1)
+>>>>>>> 195b1d102ab728f04b99cb71ab36dad375becfcc
 
                             <td>
                                 <div ng-if="item.deleted == 1">
@@ -80,6 +88,10 @@
                                 </div>
                             </td>
                             @endif
+<<<<<<< HEAD
+=======
+                            
+>>>>>>> 195b1d102ab728f04b99cb71ab36dad375becfcc
                             <td>
                                 <a href="javascript:;" ng-click="edit(item.id)" class="btn btn-warning btn-sm">Edit</a>
                                 @if(Auth::id() !=1)
